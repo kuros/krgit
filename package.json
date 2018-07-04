@@ -8,16 +8,26 @@
     "email": ""
   },
   "main": "index.js",
+  "scripts": {
+    "build": "node_modules/typescript/bin/tsc -p .",
+    "clean": "rm -rf dist",
+    "execute": "node dist/index.js",
+    "start": "npm run clean && npm run build && npm run execute"
+
+  },
   "devDependencies": {
+    "@types/node": "^10.5.1",
     "tslint": "^5.10.0",
     "typescript": "^2.9.2"
   },
   "keywords": [
     "stash",
     "git",
-    "clone",
     "projects",
     "repos"
   ],
-  "license": "BSD-2-Clause-FreeBSD"
+  "license": "BSD-2-Clause-FreeBSD",
+  "dependencies": {
+    "@types/node": "^10.5.1"
+  }
 }
