@@ -3,19 +3,15 @@ import {ConfigDetails} from "./ConfigService";
 
 export class FileService {
 
-    public getGitDirectories(config: ConfigDetails): Map<string, Array<string>> {
+    public getGitDirectories(config: ConfigDetails): FileDetails[] {
         const path = config.cwd;
-        const files:string[] = [];
+        const files: string[] = [];
         this.loadFiles(path, files);
-        return this.generateMap(files);
-    }
 
-    private generateMap(files: string[]) {
-        let map: Map<string, Array<string>> = new Map<string, Array<string>>();
+        let fileDetails: FileDetails[] = [];
         files.forEach(file => {
             let split: string[] = file.split("/");
             let length = split.length;
-
             let key: string;
             if (length >= 2) {
                 key = split[length - 2];
@@ -23,13 +19,39 @@ export class FileService {
                 key = 'root'
             }
 
-            let value: string = split[length - 1];
-            let values: string[] = map.get(key) || [];
-            values.push(value);
-            map.set(key, values)
+            let detail: FileDetails = {
+                path: file,
+                project: split[length - 1],
+                parent: key
+            };
+
+            fileDetails.push(detail);
         });
-        return map;
+
+        return fileDetails;
     }
+
+
+    // private generateMap(files: string[]) {
+    //     let map: Map<string, Array<string>> = new Map<string, Array<string>>();
+    //     files.forEach(file => {
+    //         let split: string[] = file.split("/");
+    //         let length = split.length;
+    //
+    //         let key: string;
+    //         if (length >= 2) {
+    //             key = split[length - 2];
+    //         } else {
+    //             key = 'root'
+    //         }
+    //
+    //         let value: string = split[length - 1];
+    //         let values: string[] = map.get(key) || [];
+    //         values.push(value);
+    //         map.set(key, values)
+    //     });
+    //     return map;
+    // }
 
     private loadFiles(path: string, files: string[]) {
         files = files || [];
@@ -44,4 +66,10 @@ export class FileService {
         }
         return;
     }
+}
+
+export interface FileDetails {
+    path: string;
+    project: string;
+    parent: string;
 }
