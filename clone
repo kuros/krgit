@@ -1,0 +1,24 @@
+#!/bin/bash
+npm install
+echo `pwd`
+ans='y'
+if [ -s config.json ]; then
+  echo Use existing config? \(y/n\)
+  while [ $ans != 'y' -o $ans != 'n' ]; do
+    read ans
+    case $ans in
+      y|Y) ans='y'; break;;
+      n|N) ans='n'; break;;
+      *) echo Please enter y or n;;
+    esac
+  done
+fi
+if [ "$ans" = 'n' ]; then
+  echo Target parent directory \(`pwd`\)
+  read -e parentDir
+  parentDir="${parentDir:=`pwd`}"
+  parentDir=`cd "$parentDir"; pwd`
+  echo {\"cwd\":\"$parentDir\"} > config.json
+fi
+echo pwd
+node index.js

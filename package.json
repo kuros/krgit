@@ -1,0 +1,23 @@
+{
+  "name": "kr-git",
+  "version": "0.0.1",
+  "description": "Manage Git Repos",
+  "homepage": "",
+  "author": {
+    "name": "Kumar Rohit",
+    "email": ""
+  },
+  "main": "index.js",
+  "devDependencies": {
+    "tslint": "^5.10.0",
+    "typescript": "^2.9.2"
+  },
+  "keywords": [
+    "stash",
+    "git",
+    "clone",
+    "projects",
+    "repos"
+  ],
+  "license": "BSD-2-Clause-FreeBSD"
+}
