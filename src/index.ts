@@ -1,4 +1,5 @@
 import {ConfigDetails, ConfigService} from "./service/ConfigService";
+import {FileService} from "./service/FileService";
 
 export class Main {
     private readonly params: string[];
@@ -21,7 +22,9 @@ export class Main {
         let config:ConfigDetails;
         config = configService.loadConfigs();
 
-        console.log(JSON.stringify(config));
+        const fileService = new FileService();
+        let dirMap:Map<string, Array<string>> = fileService.getGitDirectories(config);
+
     }
 }
 
