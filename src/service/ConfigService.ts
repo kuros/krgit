@@ -11,7 +11,7 @@ export class ConfigService {
             {type: "input", name: "cwd", message: "Working Directory"},
             {type: "input", name: "username", message: "User Name"},
             {type: "password", name: "password", message: "Password"},
-            {type: "checkbox", name: "serverType", message: "Choose Server Type", choices: ['stash', 'github']}
+            {type: "checkbox", name: "serverType", message: "Choose Server Type", choices: ['stash']}
         ];
         inquirer.prompt(questions).then((value:Answers) => {
             // config.cwd = value["cwd"];
@@ -38,17 +38,17 @@ export class ConfigService {
 
     public loadConfigs():ConfigDetails {
         try {
-            return this.parseConfigDetails(JSON.parse(readFileSync(this.file_path, "utf8")));
+            return ConfigService.parseConfigDetails(JSON.parse(readFileSync(this.file_path, "utf8")));
         } catch (e) {
             throw new Error("Unable to load config file, use 'init' command to initialise config properties");
         }
     }
 
-    private parseConfigDetails(value: any):ConfigDetails {
+    private static parseConfigDetails(value: any):ConfigDetails {
         return {
             cwd: value["cwd"],
             username: value["username"],
-            password: value["password"],
+            password: Buffer.from(value["password"], 'base64').toString('binary'),
             serverType: value["serverType"]
         };
     }
