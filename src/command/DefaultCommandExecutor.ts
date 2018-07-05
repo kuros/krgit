@@ -11,8 +11,8 @@ export class DefaultCommandExecutor implements Command {
     private projectMap:{[key:string]: FileDetails[]};
 
     constructor(private config:ConfigDetails, private args:string[], private fileDetails: FileDetails[]) {
-        this.parentProjectMap = this.generateMap(fileDetails, 'parent');
-        this.projectMap = this.generateMap(fileDetails, 'project')
+        this.parentProjectMap = Utils.generateMap(fileDetails, 'parent');
+        this.projectMap = Utils.generateMap(fileDetails, 'project')
     }
 
     doesHandle(): boolean {
@@ -64,20 +64,8 @@ export class DefaultCommandExecutor implements Command {
                 fileDetails.forEach(fileDetail => {
                     Utils.changeDirectory(fileDetail.path);
                     Utils.runGitCommand(command);
-                    // console.log(this.generateCommand());
                 });
             })
         })
-    }
-
-    private generateMap(fileDetails: FileDetails[], key:string):{[key:string]: FileDetails[]} {
-        let map:{[key:string]: FileDetails[]} = {};
-        fileDetails.forEach(file => {
-            let anies = map[file[key]] || [];
-            anies.push(file);
-            map[file[key]] = anies;
-        });
-
-        return map;
     }
 }

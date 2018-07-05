@@ -1,4 +1,5 @@
 import * as child from 'child_process'
+import {FileDetails} from "../service/FileService";
 
 export class Utils {
     public static changeDirectory(path:string):void {
@@ -24,5 +25,16 @@ export class Utils {
                 console.log(stdout);
             }
         });
+    }
+
+    public static generateMap(fileDetails: FileDetails[], key:string):{[key:string]: FileDetails[]} {
+        let map:{[key:string]: FileDetails[]} = {};
+        fileDetails.forEach(file => {
+            let anies = map[file[key]] || [];
+            anies.push(file);
+            map[file[key]] = anies;
+        });
+
+        return map;
     }
 }

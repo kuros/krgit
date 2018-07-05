@@ -2,6 +2,7 @@ import {ConfigDetails} from "../service/ConfigService";
 import {FileDetails} from "../service/FileService";
 import {Command} from "./Command";
 import {DefaultCommandExecutor} from "./DefaultCommandExecutor";
+import {AllCommandExecutor} from "./AllCommandExecutor";
 
 
 export class CommandFactory {
@@ -10,6 +11,7 @@ export class CommandFactory {
     constructor(private config:ConfigDetails, private args:string[], private fileDetails:FileDetails[]) {
         this.commands = [];
         this.commands.push(new DefaultCommandExecutor(config, args, fileDetails));
+        this.commands.push(new AllCommandExecutor(config, args, fileDetails));
     }
 
     public handleCommands(commandSting:string):void {
