@@ -31,28 +31,6 @@ export class FileService {
         return fileDetails;
     }
 
-
-    // private generateMap(files: string[]) {
-    //     let map: Map<string, Array<string>> = new Map<string, Array<string>>();
-    //     files.forEach(file => {
-    //         let split: string[] = file.split("/");
-    //         let length = split.length;
-    //
-    //         let key: string;
-    //         if (length >= 2) {
-    //             key = split[length - 2];
-    //         } else {
-    //             key = 'root'
-    //         }
-    //
-    //         let value: string = split[length - 1];
-    //         let values: string[] = map.get(key) || [];
-    //         values.push(value);
-    //         map.set(key, values)
-    //     });
-    //     return map;
-    // }
-
     private loadFiles(path: string, files: string[]) {
         files = files || [];
         if (statSync(path).isDirectory()) {
