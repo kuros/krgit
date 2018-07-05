@@ -14,11 +14,9 @@ export class Utils {
     }
 
     public static runGitCommand(command:string):void {
-        console.log(command);
         child.exec(command, (error, stdout) => {
             if (error) {
                 console.log(error);
-                process.exit(1);
             }
 
             if (stdout) {

@@ -22,10 +22,6 @@ export class ConfigService {
                 serverType: value["serverType"][0]
             };
 
-
-            // console.log(Buffer.from('SOlsbPMgd/NybGQhIQ==', 'base64').toString('binary'));
-
-
             writeFile(this.file_path, JSON.stringify(details), err => {
                 if (err) {
                     console.log(err);

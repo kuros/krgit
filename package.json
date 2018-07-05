@@ -9,10 +9,11 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "node_modules/typescript/bin/tsc -p .",
+    "compile": "node_modules/typescript/bin/tsc -p .",
     "clean": "rm -rf dist",
     "execute": "node dist/index.js",
-    "start": "npm run clean && npm run build && npm run execute"
+    "build": "npm run clean && npm run compile",
+    "start": "npm run execute"
   },
   "devDependencies": {
     "@types/node": "^10.5.1",
