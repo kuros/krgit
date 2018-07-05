@@ -3,6 +3,7 @@ import {FileDetails} from "../service/FileService";
 import {Command} from "./Command";
 import {DefaultCommandExecutor} from "./DefaultCommandExecutor";
 import {AllCommandExecutor} from "./AllCommandExecutor";
+import {FolderCommandExecutor} from "./FolderCommandExecutor";
 
 
 export class CommandFactory {
@@ -12,6 +13,7 @@ export class CommandFactory {
         this.commands = [];
         this.commands.push(new DefaultCommandExecutor(config, args, fileDetails));
         this.commands.push(new AllCommandExecutor(config, args, fileDetails));
+        this.commands.push(new FolderCommandExecutor(config, args, fileDetails));
     }
 
     public handleCommands(commandSting:string):void {
