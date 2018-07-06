@@ -20,7 +20,7 @@ export class AllCommandExecutor implements Command {
     handle(command:string): void {
         this.fileDetails.forEach(fileDetail => {
             Utils.changeDirectory(fileDetail.path);
-            Utils.runGitCommand(command);
+            Utils.runGitCommand(fileDetail.path, command);
         })
     }
 }

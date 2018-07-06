@@ -63,7 +63,7 @@ export class DefaultCommandExecutor implements Command {
 
                 fileDetails.forEach(fileDetail => {
                     Utils.changeDirectory(fileDetail.path);
-                    Utils.runGitCommand(command);
+                    Utils.runGitCommand(fileDetail.path, command);
                 });
             })
         })

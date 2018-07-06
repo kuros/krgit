@@ -13,13 +13,15 @@ export class Utils {
         }
     }
 
-    public static runGitCommand(command:string):void {
+    public static runGitCommand(filePath:string, command:string):void {
         child.exec(command, (error, stdout) => {
             if (error) {
+                console.log("------------------" + filePath + "------------------");
                 console.log(error);
             }
 
             if (stdout) {
+                console.log("------------------" + filePath + "------------------");
                 console.log(stdout);
             }
         });

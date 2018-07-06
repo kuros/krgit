@@ -1,2 +1,16 @@
 #!/bin/bash
-npm start
+
+if [[ $# -eq 1 && $1 = "--help" ]]; then
+    echo '1) krgit --init    : to initialise the project.'
+    echo '2) krgit           : To run command on selected projects.'
+    echo '3) krgit group     : To run command on selected group of projects.'
+    echo '4) krgit all       : To run command on all the projects.'
+
+elif [[ $# -eq 1 && $1 = "--init" ]]; then
+    npm install
+    npm run build
+    npm start init
+else
+    npm start "$@"
+fi
+

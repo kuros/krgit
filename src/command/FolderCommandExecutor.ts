@@ -2,6 +2,7 @@ import {Command} from "./Command";
 import {ConfigDetails} from "../service/ConfigService";
 import {FileDetails} from "../service/FileService";
 import {Utils} from "../util/Utils";
+import {Answers, default as inquirer, Question} from "inquirer";
 
 export class FolderCommandExecutor implements Command {
 
@@ -12,17 +13,26 @@ export class FolderCommandExecutor implements Command {
     }
 
     doesHandle(): boolean {
-        return this.args.length === 1
+        return this.args.length === 1 && this.args[0] === 'group'
     }
 
     handle(command:string): void {
+        let keys:string[] = Object.keys(this.parentProjectMap);
+        let question:Question = {
+            type: "list",
+            choices: keys,
+            message: "Select group of repos",
+            name: "group"
+        };
 
-        let arg:string = this.args[0];
-        let fileDetails:FileDetails[] = this.parentProjectMap[arg];
+        inquirer.prompt(question).then((answer:Answers) => {
+            let group:string = answer["group"];
+            let fileDetails:FileDetails[] = this.parentProjectMap[group];
 
-        fileDetails.forEach(fileDetail => {
-            Utils.changeDirectory(fileDetail.path);
-            Utils.runGitCommand(command);
+            fileDetails.forEach(fileDetail => {
+                Utils.changeDirectory(fileDetail.path);
+                Utils.runGitCommand(fileDetail.path, command);
+            });
         });
     }
 }
